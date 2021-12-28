@@ -31,8 +31,6 @@
 	</tr>
 	<%
 		try{
-			//Class.forName("com.microsoft.jdbc.sqlserver.SQLServerDirverz");  //MS-sql
-			//Class.forName("org.gjt.mm.msql.Driver");  //mySql
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			conn = DriverManager.getConnection(url, user, pass);
 			pstmt = conn.prepareStatement(sql);
@@ -44,6 +42,7 @@
 				out.print("<td>"+rs.getString("author_name")+"</td>");
 				out.print("<td>"+rs.getString("author_desc")+"</td>");
 				out.print("</tr>");
+				
             }
 		}catch(Exception e){
 			e.printStackTrace();
@@ -58,6 +57,9 @@
 		}
 		
 	%>
-</table>
+	
+</table><br>
+<a href="inSertAuthorForm.html" >새로운 정보 입력</a> <br><br>
+<a href="updateAuthorForm.html" >정보 업데이트</a> 
 </body>
 </html>

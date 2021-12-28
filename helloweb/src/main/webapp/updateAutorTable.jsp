@@ -20,9 +20,12 @@
 
 <%
 request.setCharacterEncoding("utf-8");
+int author_id = Integer.parseInt(request.getParameter("author_id")); 
 String author_name = request.getParameter("author_name");
 String author_desc = request.getParameter("author_desc");
 
+
+System.out.println("author_id = " + author_id);
 System.out.println("author_name = " + author_name);
 System.out.println("author_desc = " + author_desc);
 
@@ -33,8 +36,10 @@ ResultSet rs = null;
 String url = "jdbc:oracle:thin:@localhost:1521:xe";
 String user = "webdb";
 String pass = "aa693655";
-String sql = "INSERT INTO author VALUES (seq_author_id.nextval, ?, ? )";
-
+String sql = " UPDATE AUTHOR " 
+        + " SET AUTHOR_NAME = ?, "
+        + "     AUTHOR_DESC = ?  "
+        + " WHERE AUTHOR_ID = ?  ";
 try {
   Class.forName("oracle.jdbc.driver.OracleDriver");
   conn = DriverManager.getConnection(url, user, pass);
@@ -42,6 +47,8 @@ try {
   pstmt = conn.prepareStatement(sql);
   pstmt.setString(1, author_name);
   pstmt.setString(2, author_desc);
+  pstmt.setInt(3, author_id);
+
 
   int count = pstmt.executeUpdate();
 
